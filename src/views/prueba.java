@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package views;
 
 import ModeloDAO.PruebaCuentaDAO;
 import ModeloVO.ClienteVO;
 import ModeloVO.CuentaVO;
 import ModeloVO.UsuarioVO;
+import util.validacion;
 import static views.index.mostrarAlerta;
 
 /**
@@ -15,13 +12,19 @@ import static views.index.mostrarAlerta;
  * @author jhona
  */
 public class prueba extends javax.swing.JFrame {
+
     private PruebaCuentaDAO pruebaCuentaDao = new PruebaCuentaDAO();
 
     /**
      * Creates new form prueba
      */
     public prueba() {
-        initComponents();
+        if (validacion.isSessionActive()) {
+            initComponents();
+        } else {
+            dispose();
+        }
+
     }
 
     /**
@@ -285,19 +288,19 @@ public class prueba extends javax.swing.JFrame {
         String usuario = txtUsuario.getText();
         String clave = txtClave.getText();
         String rol = txtrol.getSelectedItem().toString();
-        
+
         String idrol = "";
-        
+
         if (rol.equals("Cliente")) {
-            
+
             idrol = "2";
-            
-        }else{
-            idrol="1";
+
+        } else {
+            idrol = "1";
         }
 
         cuentavo = new CuentaVO(numCuenta, numCuenta, titular, saldo, fechaapertura, estado);
-        clientevo = new ClienteVO(clave, cedula, numCuenta, telefono, numCuenta, usuario);
+        clientevo = new ClienteVO(clave, cedula, titular, telefono, numCuenta, usuario);
         usuvo = new UsuarioVO(usuario, usuario, clave, idrol);
 
         if (pruebaCuentaDao.crearCuenta(cuentavo, clientevo, usuvo)) {

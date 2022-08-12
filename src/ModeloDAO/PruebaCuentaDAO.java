@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import util.Conexion;
+import views.index;
 import static views.index.mostrarAlerta;
 
 /**
@@ -66,10 +67,12 @@ public class PruebaCuentaDAO extends Conexion {
         // Instancias necesarias
         CuentaVO cuentaVo = null;
         ClienteVO clienteVo = null;
+        CuentaDAO cuentDao = new CuentaDAO();
+        ClienteDAO clientDao = new ClienteDAO();
 
         // Se obtiene los datos de la consulta
-        clienteVo = clientedao.selectByIdUsuario(idUsuario);
-        cuentaVo = cuentadao.consultarCuentaPorId(clienteVo.getIdCuenta());
+        clienteVo = clientDao.selectByIdUsuario(idUsuario);
+        cuentaVo = cuentDao.consultarCuentaPorId(clienteVo.getIdCuenta());
 
         // Se asignan los objetos al array
         datosCliente = new Object[]{cuentaVo, clienteVo};
@@ -80,6 +83,12 @@ public class PruebaCuentaDAO extends Conexion {
         UsuarioVO usuarioVO = usudao.login(user, password);
 
         return usuarioVO;
+    }
+    
+    public void logout() {
+        UsuarioVO.idUsuarioSession = null;
+        index index = new index();
+        index .setVisible(true);
     }
 
     public boolean retirarDinero(String cantidadARetirar) {

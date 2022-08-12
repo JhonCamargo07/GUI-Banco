@@ -172,6 +172,7 @@ public class CuentaDAO extends Conexion {
     // Método para obtener los datos de una cuenta
     public CuentaVO consultarCuentaPorId(String idCuenta) {
         CuentaVO cuentaVo = null;
+        conn = null;
         sql = "SELECT * FROM cuenta WHERE idcuenta = ?";
 
         try {

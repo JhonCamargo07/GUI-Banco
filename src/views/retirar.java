@@ -1,9 +1,12 @@
 package views;
 
+import ModeloDAO.ClienteDAO;
+import ModeloDAO.CuentaDAO;
 import ModeloDAO.PruebaCuentaDAO;
 import ModeloVO.ClienteVO;
 import ModeloVO.CuentaVO;
 import ModeloVO.UsuarioVO;
+import util.validacion;
 import static views.index.mostrarAlerta;
 
 /**
@@ -178,15 +181,17 @@ public class retirar extends javax.swing.JFrame {
         } else {
             if (pruebaCuentaDao.retirarDinero(jTextFieldCantidadRetirar.getText())) {
                 mostrarAlerta("Dinero retirado correctamente, reclámelo en cualquiera de nuestras oficinas");
-                dispose();
-                menu menu = new menu();
-                menu.dispose();
+//                menu menu = new menu();
+//                menu.dispose();
+//                ClienteDAO clienteDao = new ClienteDAO();
+//                CuentaDAO cuentaDao = new CuentaDAO();
                 Object[] objetos = pruebaCuentaDao.consultarDatosCliente(UsuarioVO.idUsuarioSession);
                 CuentaVO cuentaVo = (CuentaVO) objetos[0];
                 ClienteVO clienteVo = (ClienteVO) objetos[1];
-                menu menuNew = new menu(cuentaVo, clienteVo);
-                menuNew.setVisible(true);
-                
+                menu menu = new menu(cuentaVo, clienteVo);
+                menu.setVisible(true);
+                dispose();
+
             } else {
                 mostrarAlerta("No se pudo retirar el dinero, ocurrió un error");
             }
@@ -227,8 +232,11 @@ public class retirar extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
-                new retirar().setVisible(true);
+                if (validacion.isSessionActive()) {
+                    new retirar().setVisible(true);
+                }
             }
         });
     }

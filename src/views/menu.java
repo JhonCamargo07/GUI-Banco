@@ -17,8 +17,11 @@ public class menu extends javax.swing.JFrame {
      * Creates new form index
      */
     public menu() {
-
-        initComponents();
+        if (validacion.isSessionActive()) {
+            initComponents();
+        } else {
+            dispose();
+        }
 
     }
 
@@ -226,6 +229,7 @@ public class menu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         retirar retirar = new retirar(cuentaVo, clienteVo);
         retirar.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
