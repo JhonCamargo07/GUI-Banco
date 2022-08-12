@@ -13,6 +13,7 @@ public class UsuarioVO {
     private String idRol;
 
     public UsuarioVO() {
+        UsuarioVO.sesionActive = false;
     }
 
     public UsuarioVO(String idUsuario) {
