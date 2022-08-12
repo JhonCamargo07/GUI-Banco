@@ -39,7 +39,8 @@ public class menuAdministrador extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(605, 615));
+        setBackground(new java.awt.Color(249, 249, 249));
+        setMinimumSize(new java.awt.Dimension(605, 550));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
