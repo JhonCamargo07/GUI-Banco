@@ -78,6 +78,11 @@ public class menuAdministrador extends javax.swing.JFrame {
         jButtonClientes.setBackground(new java.awt.Color(242, 242, 242));
         jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cliente.png"))); // NOI18N
         jButtonClientes.setBorder(null);
+        jButtonClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonClientesMouseClicked(evt);
+            }
+        });
         getContentPane().add(jButtonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, -1, 140));
 
         jButtonCuentas.setBackground(new java.awt.Color(242, 242, 242));
@@ -117,6 +122,13 @@ public class menuAdministrador extends javax.swing.JFrame {
         prueba.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonAgregarActionPerformed
+
+    private void jButtonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonClientesMouseClicked
+        gestionarClientes gestionar = new gestionarClientes();
+        gestionar.setVisible(true);
+        dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonClientesMouseClicked
 
     /**
      * @param args the command line arguments

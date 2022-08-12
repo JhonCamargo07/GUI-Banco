@@ -34,7 +34,7 @@ public class Conexion {
             //Creando nueva instancia del driver
             Class.forName(driver).newInstance();
             conexion = DriverManager.getConnection(urlDB, userDB, passwordDB);
-            System.out.println("Conexión ok!");
+            System.out.println("Conexion abierta");
 
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
 
@@ -60,7 +60,7 @@ public class Conexion {
     public Connection close(Connection conn){
         try {
             conn.close();
-            System.out.println("Se cerró la conexion");
+            System.out.println("Conexion cerrada");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }

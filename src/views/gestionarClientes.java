@@ -49,7 +49,7 @@ public class gestionarClientes extends javax.swing.JFrame {
     }
 
     public void rellenarTable() {
-        String []info = new String[4];
+        String []info = new String[6];
         
         ClienteDAO clienteDao = new ClienteDAO();
         
@@ -60,6 +60,8 @@ public class gestionarClientes extends javax.swing.JFrame {
             info[1] = cliente.getNombreCliente();
             info[2] = cliente.getCedulaCliente();
             info[3] = cliente.getTelefonoCliente();
+            info[4] = "Editar";
+            info[5] = "Eliminar";
             modelo.addRow(info);
         });
         
