@@ -4,12 +4,16 @@
  */
 package views;
 
+import ModeloDAO.PruebaCuentaDAO;
+
 /**
  *
  * @author jhona
  */
 public class menuAdministrador extends javax.swing.JFrame {
 
+    private PruebaCuentaDAO pruebaCuentaDao = new PruebaCuentaDAO();
+    
     /**
      * Creates new form menuAdministrador
      */
@@ -53,7 +57,6 @@ public class menuAdministrador extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerrae.png"))); // NOI18N
-        jButton1.setText("Cerrar Sesion");
         jButton1.setBorder(null);
         jButton1.setMinimumSize(new java.awt.Dimension(38, 38));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -109,9 +112,7 @@ public class menuAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        index index = new index();
-        index.setVisible(true);
+        pruebaCuentaDao.logout();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

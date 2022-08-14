@@ -23,7 +23,7 @@ public class gestionarClientes extends javax.swing.JFrame {
      */
     public gestionarClientes() {
         if (validacion.isSessionActive()) {
-        initComponents();
+            initComponents();
 
             modelo = new DefaultTableModel();
             modelo.addColumn("#");
@@ -33,7 +33,7 @@ public class gestionarClientes extends javax.swing.JFrame {
             modelo.addColumn("Editar");
 //            modelo.addColumn("Eliminar");
             rellenarTable();
-        }else{
+        } else {
             dispose();
         }
     }
@@ -49,12 +49,12 @@ public class gestionarClientes extends javax.swing.JFrame {
     }
 
     public void rellenarTable() {
-        String []info = new String[5];
-        
+        String[] info = new String[5];
+
         ClienteDAO clienteDao = new ClienteDAO();
-        
+
         List<ClienteVO> clientes = clienteDao.select();
-        
+
         clientes.forEach(cliente -> {
             info[0] = cliente.getIdCliente();
             info[1] = cliente.getNombreCliente();
@@ -63,7 +63,7 @@ public class gestionarClientes extends javax.swing.JFrame {
             info[4] = "Acción";
             modelo.addRow(info);
         });
-        
+
         this.jTableClientes.setModel(modelo);
     }
 
@@ -78,13 +78,12 @@ public class gestionarClientes extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldUser = new javax.swing.JTextField();
+        jTextFieldCedula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableClientes = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
         jButtonCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -96,11 +95,11 @@ public class gestionarClientes extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Medium", 1, 36)); // NOI18N
         jLabel1.setText("Clientes");
 
-        jTextFieldUser.setForeground(new java.awt.Color(0, 151, 210));
-        jTextFieldUser.setToolTipText("");
-        jTextFieldUser.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldCedula.setForeground(new java.awt.Color(0, 151, 210));
+        jTextFieldCedula.setToolTipText("");
+        jTextFieldCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldUserActionPerformed(evt);
+                jTextFieldCedulaActionPerformed(evt);
             }
         });
 
@@ -140,13 +139,6 @@ public class gestionarClientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableClientes);
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jButtonCerrar.setBackground(new java.awt.Color(242, 242, 242));
         jButtonCerrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButtonCerrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,7 +161,7 @@ public class gestionarClientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18))
@@ -179,13 +171,11 @@ public class gestionarClientes extends javax.swing.JFrame {
                         .addGap(249, 249, 249)
                         .addComponent(jLabel1)
                         .addGap(59, 59, 59)
-                        .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(jButton2))
+                        .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,15 +183,13 @@ public class gestionarClientes extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
@@ -225,60 +213,51 @@ public class gestionarClientes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserActionPerformed
+    private void jTextFieldCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldUserActionPerformed
+    }//GEN-LAST:event_jTextFieldCedulaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        String email = jTextFieldUser.getText();
-//        String pass = jTextFieldPassword.getText();
-//        
-//        if(validacion.isEmail(email) && validacion.esDatoValido("contraseña", pass, 10, 21)){
-//        // Obtener los datos del usuario según el inicio de sesion
-//            UsuarioVO usuarioVo = pruebaCuentaDao.login(email, pass);
-//
-//            if (usuarioVo != null) {
-//                UsuarioVO.sesionActive = true;
-//                UsuarioVO.idUsuarioSession = usuarioVo.getIdUsuario();
-//                Object[] objetos = pruebaCuentaDao.consultarDatosCliente(UsuarioVO.idUsuarioSession);
-//                CuentaVO cuentaVo = (CuentaVO) objetos[0];
-//                ClienteVO clienteVo = (ClienteVO) objetos[1];
-//                menu menu = new menu(cuentaVo, clienteVo);
-//                menu.setVisible(true);
-//                dispose();
-//            } else {
-//                dispose();
-//                gestionarClientes index = new gestionarClientes(email, pass);
-//                index.setVisible(true);
-//                mostrarAlerta("Los datos son erroneos");
-//            }
-//        }
+        String cedulaCliente = jTextFieldCedula.getText();
 
-        // TODO add your handling code here:
+        if (cedulaCliente.equals("")) {
+            mostrarAlerta("Debe proporcionar una cedula");
+        } else {
+            ClienteDAO clienteDao = new ClienteDAO();
+            ClienteVO clienteVo = clienteDao.selectByCC(cedulaCliente);
+            if (clienteVo != null) {
+                if (pruebaCuentaDao.eliminarCliente(clienteVo)) {
+                    gestionarClientes gestionar = new gestionarClientes();
+                    gestionar.setVisible(true);
+                    dispose();
+                    mostrarAlerta("El cliente se eliminó correctamente");
+                } else {
+                    gestionarClientes gestionar = new gestionarClientes();
+                    gestionar.setVisible(true);
+                    dispose();
+                    mostrarAlerta("Ocurrió un error al eliminar el cliente, intentelo nuevamente");
+                }
+            } else {
+                mostrarAlerta("No se encontró ningún registro que coincidad con esta cedula: " + cedulaCliente);
+            }
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
         pruebaCuentaDao.logout();
         dispose();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
-        index index = new index();
-        index.setVisible(true);
-        dispose();
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
         int seleccion = jTableClientes.getSelectedRow();
-        
+
         String idCliente = jTableClientes.getValueAt(seleccion, 0).toString();
-        
+
         editarCliente editarCliente = new editarCliente(idCliente);
         editarCliente.setVisible(true);
         dispose();
-        
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableClientesMouseClicked
 
@@ -320,7 +299,6 @@ public class gestionarClientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -328,6 +306,6 @@ public class gestionarClientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableClientes;
-    private javax.swing.JTextField jTextFieldUser;
+    private javax.swing.JTextField jTextFieldCedula;
     // End of variables declaration//GEN-END:variables
 }

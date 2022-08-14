@@ -11,6 +11,7 @@ import java.util.logging.Logger;
  * @author Sena
  */
 public class Conexion {
+
     //    //Declarar variables
     private String driver, userDB, passwordDB, dataBase, urlDB;
 
@@ -31,10 +32,12 @@ public class Conexion {
         //El try es una forma de controlar errores 
         try {
 
-            //Creando nueva instancia del driver
-            Class.forName(driver).newInstance();
-            conexion = DriverManager.getConnection(urlDB, userDB, passwordDB);
-            System.out.println("Conexion abierta");
+            if (conexion == null) {
+                //Creando nueva instancia del driver
+                Class.forName(driver).newInstance();
+                conexion = DriverManager.getConnection(urlDB, userDB, passwordDB);
+                System.out.println("Conexion abierta");
+            }
 
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
 
@@ -47,7 +50,7 @@ public class Conexion {
         return conexion;
     }
 
-    public Connection close(){
+    public Connection close() {
         try {
             conexion.close();
         } catch (SQLException ex) {
@@ -56,10 +59,15 @@ public class Conexion {
         conexion = null;
         return conexion;
     }
-    
-    public Connection close(Connection conn){
+
+    public Connection close(Connection conn) {
         try {
-            conn.close();
+            if (conn != null) {
+                conn.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
             System.out.println("Conexion cerrada");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,4 +80,3 @@ public class Conexion {
         new Conexion();
     }
 }
-

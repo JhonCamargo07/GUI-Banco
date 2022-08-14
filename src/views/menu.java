@@ -1,5 +1,6 @@
 package views;
 
+import ModeloDAO.PruebaCuentaDAO;
 import ModeloVO.ClienteVO;
 import ModeloVO.CuentaVO;
 import util.validacion;
@@ -12,6 +13,7 @@ public class menu extends javax.swing.JFrame {
 
     private CuentaVO cuentaVo = null;
     private ClienteVO clienteVo = null;
+    private PruebaCuentaDAO pruebaCuentaDao = new PruebaCuentaDAO();
 
     /**
      * Creates new form index
@@ -164,10 +166,8 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
-        index index = new index();
-        index.setVisible(true);
+        pruebaCuentaDao.logout();
         dispose();
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     /**

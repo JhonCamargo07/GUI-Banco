@@ -208,10 +208,10 @@ public class editarCliente extends javax.swing.JFrame {
                     .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
 
@@ -241,13 +241,19 @@ public class editarCliente extends javax.swing.JFrame {
         if (nombreCliente.equals("") || cedulaCliente.equals("") || telefonoCliente.equals("")) {
             mostrarAlerta("Los datos no pueden ser nulos, rectifíquelos e, intente nuevamente");
         } else {
+            String cedulaAnterior = clienteVo.getCedulaCliente();
             pruebaCuentaDao = new PruebaCuentaDAO();
-            clienteVo = new ClienteVO(cedulaCliente, cedulaCliente, nombreCliente, telefonoCliente, cedulaCliente, cedulaCliente);
-//            clienteVo.setCedulaCliente(cedulaCliente);
-//            clienteVo.setNombreCliente(nombreCliente);
-//            clienteVo.setTelefonoCliente(telefonoCliente);
-            if (pruebaCuentaDao.editarCliente(clienteVo)) {
+            clienteVo = new ClienteVO(clienteVo.getIdCliente(), cedulaCliente, nombreCliente, telefonoCliente, cedulaCliente, cedulaCliente);
+            if (pruebaCuentaDao.editarCliente(clienteVo, cedulaAnterior)) {
+                gestionarClientes gestionar = new gestionarClientes();
+                gestionar.setVisible(true);
+                dispose();
                 mostrarAlerta("Actualización exitosa");
+            } else {
+                gestionarClientes gestionar = new gestionarClientes();
+                gestionar.setVisible(true);
+                dispose();
+                mostrarAlerta("Desafortunadamente ocurrió un error, intentalo nuevamente");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -270,6 +276,19 @@ public class editarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        pruebaCuentaDao = new PruebaCuentaDAO();
+
+        if (pruebaCuentaDao.eliminarCliente(clienteVo)) {
+            gestionarClientes gestionar = new gestionarClientes();
+            gestionar.setVisible(true);
+            dispose();
+            mostrarAlerta("El cliente se eliminó correctamente");
+        } else {
+            gestionarClientes gestionar = new gestionarClientes();
+            gestionar.setVisible(true);
+            dispose();
+            mostrarAlerta("Ocurrió un error al eliminar el cliente, intente nuevamente");
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 

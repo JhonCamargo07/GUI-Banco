@@ -24,6 +24,7 @@ public class ClienteDAO extends Conexion {
     boolean operacionExitosa = false;
 
     public ClienteDAO() {
+        conn = null;
     }
 
     public List<ClienteVO> select() {
@@ -136,7 +137,10 @@ public class ClienteDAO extends Conexion {
         sql = "SELECT * FROM cliente WHERE CEDULACLIENTE = ?";
 
         try {
-//            conn = this.getConnection();
+//            if(conn != null){
+//                this.close(conn);
+//            }
+            conn = this.getConnection();
             puente = conn.prepareStatement(sql);
             puente.setString(1, cedula);
             mensajero = puente.executeQuery();

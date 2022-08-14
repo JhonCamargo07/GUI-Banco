@@ -33,8 +33,7 @@ public class PruebaCuentaDAO extends Conexion {
     public boolean crearCuenta(CuentaVO cuentaVO, ClienteVO clienteVO, UsuarioVO usuarioVO) {
 
         CuentaDAO cuentadao = new CuentaDAO(cuentaVO);
-        
-        
+
         cuentadao = new CuentaDAO(cuentaVO);
         int idcuenta = cuentadao.agregarCuenta();
 
@@ -84,11 +83,12 @@ public class PruebaCuentaDAO extends Conexion {
 
         return usuarioVO;
     }
-    
+
     public void logout() {
+        UsuarioVO.sesionActive = false;
         UsuarioVO.idUsuarioSession = null;
         index index = new index();
-        index .setVisible(true);
+        index.setVisible(true);
     }
 
     public boolean retirarDinero(String cantidadARetirar) {
@@ -102,16 +102,31 @@ public class PruebaCuentaDAO extends Conexion {
         }
         return false;
     }
-    
-    public boolean editarCliente(ClienteVO clienteVo) {
+
+    public boolean editarCliente(ClienteVO clienteVo, String cedulaAnterior) {
         clientedao = new ClienteDAO();
         ClienteVO clientVo = clientedao.selectByCC(clienteVo.getCedulaCliente());
-        if(!clientedao.clienteYaExiste(clienteVo.getCedulaCliente()) || clienteVo.getCedulaCliente().equals(clientVo.getCedulaCliente())){
-            if(clientedao.update(clienteVo)){
+        // Se crean varios DAO ya que ocurre un inconveniente y no se cierran las conexiones
+        ClienteDAO clienteDao = new ClienteDAO();
+        ClienteDAO cliDao = new ClienteDAO();
+        if (!clienteDao.clienteYaExiste(clienteVo.getCedulaCliente()) || clienteVo.getCedulaCliente().equals(cedulaAnterior)) {
+            clienteVo.setIdCliente(clienteVo.getIdCliente());
+            if (cliDao.update(clienteVo)) {
                 return true;
             }
-        }else{
+        } else {
             mostrarAlerta("La cédula ya está registrada, compruebe que sea la correcta");
+        }
+        return false;
+    }
+
+    public boolean eliminarCliente(ClienteVO clienteVo) {
+        ClienteDAO clienteDao = new ClienteDAO();
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        CuentaDAO cuentaDao = new CuentaDAO();
+
+        if (clienteDao.delete(clienteVo) && usuarioDao.delete(clienteVo.getIdUsuario()) && cuentaDao.delete(clienteVo.getIdCuenta())) {
+            return true;
         }
         return false;
     }
