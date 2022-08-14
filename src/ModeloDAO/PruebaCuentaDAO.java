@@ -102,5 +102,18 @@ public class PruebaCuentaDAO extends Conexion {
         }
         return false;
     }
+    
+    public boolean editarCliente(ClienteVO clienteVo) {
+        clientedao = new ClienteDAO();
+        ClienteVO clientVo = clientedao.selectByCC(clienteVo.getCedulaCliente());
+        if(!clientedao.clienteYaExiste(clienteVo.getCedulaCliente()) || clienteVo.getCedulaCliente().equals(clientVo.getCedulaCliente())){
+            if(clientedao.update(clienteVo)){
+                return true;
+            }
+        }else{
+            mostrarAlerta("La cédula ya está registrada, compruebe que sea la correcta");
+        }
+        return false;
+    }
 
 }

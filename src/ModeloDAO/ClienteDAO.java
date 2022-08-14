@@ -136,7 +136,7 @@ public class ClienteDAO extends Conexion {
         sql = "SELECT * FROM cliente WHERE CEDULACLIENTE = ?";
 
         try {
-            conn = this.getConnection();
+//            conn = this.getConnection();
             puente = conn.prepareStatement(sql);
             puente.setString(1, cedula);
             mensajero = puente.executeQuery();

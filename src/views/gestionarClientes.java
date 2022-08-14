@@ -31,7 +31,7 @@ public class gestionarClientes extends javax.swing.JFrame {
             modelo.addColumn("Cédula");
             modelo.addColumn("Telefono");
             modelo.addColumn("Editar");
-            modelo.addColumn("Eliminar");
+//            modelo.addColumn("Eliminar");
             rellenarTable();
         }else{
             dispose();
@@ -49,7 +49,7 @@ public class gestionarClientes extends javax.swing.JFrame {
     }
 
     public void rellenarTable() {
-        String []info = new String[6];
+        String []info = new String[5];
         
         ClienteDAO clienteDao = new ClienteDAO();
         
@@ -60,8 +60,7 @@ public class gestionarClientes extends javax.swing.JFrame {
             info[1] = cliente.getNombreCliente();
             info[2] = cliente.getCedulaCliente();
             info[3] = cliente.getTelefonoCliente();
-            info[4] = "Editar";
-            info[5] = "Eliminar";
+            info[4] = "Acción";
             modelo.addRow(info);
         });
         
@@ -112,7 +111,7 @@ public class gestionarClientes extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 0, 0));
         jLabel3.setText("*");
 
-        jButton1.setBackground(new java.awt.Color(0, 151, 210));
+        jButton1.setBackground(new java.awt.Color(255, 51, 51));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Eliminar");
@@ -274,7 +273,11 @@ public class gestionarClientes extends javax.swing.JFrame {
     private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
         int seleccion = jTableClientes.getSelectedRow();
         
+        String idCliente = jTableClientes.getValueAt(seleccion, 0).toString();
         
+        editarCliente editarCliente = new editarCliente(idCliente);
+        editarCliente.setVisible(true);
+        dispose();
         
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableClientesMouseClicked
