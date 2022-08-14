@@ -51,7 +51,10 @@ public class retirar extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(249, 249, 249));
         setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(249, 249, 249));
 
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Medium", 1, 24)); // NOI18N
         jLabel1.setText("Retirar dinero");
@@ -199,6 +202,11 @@ public class retirar extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Object[] objetos = pruebaCuentaDao.consultarDatosCliente(UsuarioVO.idUsuarioSession);
+        CuentaVO cuentaVo = (CuentaVO) objetos[0];
+        ClienteVO clienteVo = (ClienteVO) objetos[1];
+        menu menu = new menu(cuentaVo, clienteVo);
+        menu.setVisible(true);
         dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
