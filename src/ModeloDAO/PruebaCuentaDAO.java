@@ -6,6 +6,7 @@ import ModeloVO.UsuarioVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import util.Conexion;
 import views.index;
 import static views.index.mostrarAlerta;
@@ -33,8 +34,7 @@ public class PruebaCuentaDAO extends Conexion {
     public boolean crearCuenta(CuentaVO cuentaVO, ClienteVO clienteVO, UsuarioVO usuarioVO) {
 
         CuentaDAO cuentadao = new CuentaDAO(cuentaVO);
-        
-        
+
         cuentadao = new CuentaDAO(cuentaVO);
         int idcuenta = cuentadao.agregarCuenta();
 
@@ -84,11 +84,11 @@ public class PruebaCuentaDAO extends Conexion {
 
         return usuarioVO;
     }
-    
+
     public void logout() {
         UsuarioVO.idUsuarioSession = null;
         index index = new index();
-        index .setVisible(true);
+        index.setVisible(true);
     }
 
     public boolean retirarDinero(String cantidadARetirar) {
@@ -102,18 +102,35 @@ public class PruebaCuentaDAO extends Conexion {
         }
         return false;
     }
-    
+
     public boolean editarCliente(ClienteVO clienteVo) {
         clientedao = new ClienteDAO();
         ClienteVO clientVo = clientedao.selectByCC(clienteVo.getCedulaCliente());
-        if(!clientedao.clienteYaExiste(clienteVo.getCedulaCliente()) || clienteVo.getCedulaCliente().equals(clientVo.getCedulaCliente())){
-            if(clientedao.update(clienteVo)){
+        if (!clientedao.clienteYaExiste(clienteVo.getCedulaCliente()) || clienteVo.getCedulaCliente().equals(clientVo.getCedulaCliente())) {
+            if (clientedao.update(clienteVo)) {
                 return true;
             }
-        }else{
+        } else {
             mostrarAlerta("La cédula ya está registrada, compruebe que sea la correcta");
         }
         return false;
+    }
+
+    public boolean consultarCuenta(String estado) throws SQLException {
+
+        CuentaVO cuentavo = new CuentaVO();
+        cuentavo = cuentadao.consultarCuenta(estado);
+
+        if (cuentavo != null) {
+
+            return true;
+        } else {
+            mostrarAlerta("No hay cuentas por consultar");
+
+        }
+
+
+return false;
     }
 
 }

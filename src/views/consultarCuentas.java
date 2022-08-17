@@ -4,17 +4,65 @@
  */
 package views;
 
+import ModeloDAO.ClienteDAO;
+import ModeloDAO.CuentaDAO;
+import ModeloDAO.PruebaCuentaDAO;
+import ModeloVO.ClienteVO;
+import ModeloVO.CuentaVO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import util.validacion;
+
 /**
  *
  * @author Aprendiz
  */
 public class consultarCuentas extends javax.swing.JFrame {
 
+    private DefaultTableModel modelo;
+    private PruebaCuentaDAO pruebaCuentaDao = new PruebaCuentaDAO();
+
     /**
      * Creates new form consultarCuentas
      */
     public consultarCuentas() {
+        if (validacion.isSessionActive()) {
         initComponents();
+
+            modelo = new DefaultTableModel();
+            modelo.addColumn("#");
+            modelo.addColumn("Numero Cuenta");
+            modelo.addColumn("Titular");
+            modelo.addColumn("Saldo");
+            modelo.addColumn("Fecha Apertura");
+           modelo.addColumn("Estado");
+            rellenarTable();
+        }else{
+            dispose();
+        }
+    }
+
+
+    public void rellenarTable() {
+        String[] lista = new String[5];
+
+        CuentaDAO cuentaDao = new CuentaDAO();
+
+        List<CuentaVO> listaCuentas = cuentaDao.listar();
+
+        listaCuentas.forEach(Cuentas -> {
+            lista[0] = Cuentas.getIdCuenta();
+            lista[1] = Cuentas.getNumeroCuenta();
+            lista[2] = Cuentas.getTitular();
+            lista[3] = Cuentas.getSaldo();
+            lista[4] = Cuentas.getFechaApertura();
+            lista[5] = Cuentas.getEstado()
+                    ;
+
+            modelo.addRow(lista);
+        });
+
+        this.jTable1.setModel(modelo);
     }
 
     /**
@@ -26,21 +74,61 @@ public class consultarCuentas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButtonCerrar = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(249, 249, 249));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Franklin Gothic Medium", 1, 36)); // NOI18N
+        jLabel1.setText("Cuentas");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 487, 125));
+
+        jButtonCerrar.setBackground(new java.awt.Color(242, 242, 242));
+        jButtonCerrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonCerrar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerrae.png"))); // NOI18N
+        jButtonCerrar.setBorder(null);
+        jButtonCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
+        index index = new index();
+        index.setVisible(true);
+        dispose();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +166,10 @@ public class consultarCuentas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCerrar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
